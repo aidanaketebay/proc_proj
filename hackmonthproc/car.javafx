@@ -1,0 +1,117 @@
+package sample;
+
+import com.sun.prism.paint.Color;
+import javafx.animation.PathTransition;
+import javafx.application.Application;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Slider;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+
+public class Main extends Application {
+    int a = 0;
+    @Override
+    public void start(Stage primaryStage) throws Exception{
+        Pane pane = new Pane();
+        int x = 0;
+        int y = 300;
+        pane.setStyle("-fx-background-color: green;");
+        Polygon pol = new Polygon(x+10, y-20, x+20, y-30,x+30, y-30, x+40, y-20);
+        Rectangle rect = new Rectangle(40,20);
+    rect.setLayoutX(0);
+    rect.setLayoutY(15);
+        Circle c1 = new Circle();
+        c1.setRadius(5);
+        c1.setLayoutX(-13);
+        c1.setLayoutY(30);
+        Circle c2 = new Circle();
+        c2.setRadius(5);
+        c2.setLayoutX(17);
+        c2.setLayoutY(30);
+        Button b = new Button("Pause");
+        Button b2 = new Button("Increase");
+        pane.resize(50,50);
+        Line line = new Line(0,300,400,300);
+        line.setVisible(false);
+        pane.getChildren().addAll(rect, line,pol, c1, c2,b,b2);
+        PathTransition pt = new PathTransition();
+        pt.setPath(line);
+        pt.setNode(rect);
+        pt.setDuration(Duration.millis(5000));
+        pt.setCycleCount(PathTransition.INDEFINITE);
+
+        pt.play();
+
+        PathTransition pt2 = new PathTransition();
+        pt2.setPath(line);
+        pt2.setNode(pol);
+        pt2.setDuration(Duration.millis(5000));
+        pt2.setCycleCount(PathTransition.INDEFINITE);
+
+        pt2.play();
+        PathTransition pt3 = new PathTransition();
+        pt3.setPath(line);
+        pt3.setNode(c1);
+        pt3.setDuration(Duration.millis(5000));
+        pt3.setCycleCount(PathTransition.INDEFINITE);
+        pt3.play();
+
+        PathTransition pt4 = new PathTransition();
+        pt4.setPath(line);
+        pt4.setNode(c2);
+        pt4.setDuration(Duration.millis(5000));
+        pt4.setCycleCount(PathTransition.INDEFINITE);
+        pt4.play();
+
+        b.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if(a==0){
+                    b.setText("Play");
+                    pt.pause();
+                    pt2.pause();
+                    pt3.pause();
+                    pt4.pause();
+                    a++;}
+                else{
+                    b.setText("Pause");
+
+                    pt.play();
+                    pt2.play();
+                    pt3.play();
+                    pt4.play();
+                    a--;
+                }
+            }
+        });
+        b2.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                pt.setRate(pt.getCurrentRate() + 1);
+                pt2.setRate(pt2.getCurrentRate() + 1);
+                pt3.setRate(pt3.getCurrentRate() + 1);
+                pt4.setRate(pt4.getCurrentRate() + 1);
+
+        }
+        });
+        Scene scene = new Scene(pane);
+        primaryStage.setTitle("Hello World");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}

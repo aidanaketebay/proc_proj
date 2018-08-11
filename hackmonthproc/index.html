@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+	<title></title>
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+
+	<style type="text/css">
+		.filter{
+			display: flex;
+			flex-wrap: wrap;
+			width: 20%;
+		}
+		#range{
+			margin-top: 20px;
+			margin-bottom: 20px;
+			display: flex;
+			justify-content: space-around;
+			float: left;
+		}
+		table {  
+			margin-top: 20px;
+    color: #333;
+    font-family: Helvetica, Arial, sans-serif;
+    width: 540px; 
+    border-collapse: 
+    collapse; border-spacing: 0; 
+}
+
+td, th {  
+    border: 1px solid transparent; /* No more visible border */
+    height: 30px; 
+    transition: all 0.3s;  /* Simple transition for hover effect */
+}
+
+th {  
+    background: #DFDFDF;  /* Darken header a bit */
+    font-weight: bold;
+}
+
+td {  
+    background: #FAFAFA;
+    text-align: center;
+}
+
+/* Cells in even rows (2,4,6...) are one color */        
+tr:nth-child(even) td { background: #F1F1F1; }   
+
+/* Cells in odd rows (1,3,5...) are another (excludes header cells)  */        
+tr:nth-child(odd) td { background: #FEFEFE; }  
+
+tr td:hover { background: #666; color: #FFF; }  
+	</style>
+</head>
+<body>
+<div class="filter">
+	<button class="cont">Экспортировать все данные в Excel</button>
+	<br>
+<form id="range" method="POST" action="seachDate.php">
+  <input type="date" name="from">
+  <input type="date" name="to">
+  <input type="submit" name ="searchbydate" value="Поиск по дате">
+</form>
+	<form id="search" method="POST" action="searchID.php">
+	<input type="text" name="input_id">
+	<input type="submit" name = "searchbyid" value="Поиск по ID"></form>
+	
+</div>
+<script>
+   $(function(){
+       $("#flaskRoute").onclick("#divID");
+   });
+</script>
+<input type="button" id="divID" value = "button" style= "color:white;background-color: #000000;" onclick="setColor('button')";/>
+<table >
+    <tr>
+      <th>id</th>
+      <th>time_in</th>
+      <th>time_out</th>
+    </tr>
+    <tr>
+      <td>160107001</th>
+      <td>08:58:02</td>
+      <td>-</td>
+   
+    </tr>
+    <tr>
+      <td>160107002</th>
+      <td>08:58:52</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>160107003</th>
+      <td>09:00:23</td>
+      <td>-</td>
+    </tr>
+</table>
+
+</body>
+</html>
